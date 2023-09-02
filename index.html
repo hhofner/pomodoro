@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pomodoro</title>
+    <meta name="description" content="Pomodoro">
+    <!-- <link rel="stylesheet" type="text/css" href="theme.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/duration.js"></script>
+    <script>dayjs.extend(window.dayjs_plugin_duration)</script>
+
+  </head>
+  <body>
+   <div class="window" style="width:25rem;">
+       <div class="title-bar"> 
+           <button aria-label="Close" class="close"></button>
+           <h1 class="title">Pomodoro</h1>
+           <button aria-label="Resize" class="resize"></button>
+       </div>
+       <div class="separator"></div>
+       
+       <div class="window-pane" x-data="pomodoroComponent()" x-init="$watch('focusDuration', () => setTime())">
+           <h1 style="display: flex; gap: 0.5rem;" ><span x-text="getTime()"></span><span x-text="mode"></span></h1>
+           <button class="btn" aria-label="Start" x-on:click="play()">
+             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg>
+           </button>
+           <button class="btn" aria-label="Pause" x-on:click="pause()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
+           <button class="btn" aria-label="Stop" x-on:click="stop()">
+             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h12v12H6z"/></svg>
+           </button>
+           <div style="margin-top: 1rem;">
+             <label>Focus Duration</label>
+             <input aria-label="Example text box" type="text" x-model="focusDuration"/>
+           </div>
+           <div style="margin-top: 1rem;">
+             <label>Break Duration</label>
+             <input aria-label="Example text box" type="text" x-model="breakDuration"/>
+           </div>
+       </div>
+   </div>
+   <script>
+       function pomodoroComponent() {
+           return {
+              mode: '',
+              focusDuration: 29,
+              breakDuration: 5,
+              time: null,
+              timer: null,
+              play() {
+                if (this.time === null) {
+                  this.time = dayjs.duration(this.focusDuration, 'minutes')
+                }
+                if (this.timer === null) {
+                  this.mode = 'Focusing'
+                  this.timer = window.setInterval(() => {
+                    this.time = this.time.subtract(1, 'second')
+                  }, 1000)
+                }
+              },
+              pause() {
+                if (this.time !== null) {
+                  if (this.timer) {
+                    this.mode = 'Paused'
+                    window.clearInterval(this.timer)
+                    this.timer = null
+                  }
+                }
+              },
+              stop () {
+                if (this.time !== null) {
+                  if (this.timer) {
+                    window.clearInterval(this.timer)
+                    this.timer = null
+                  }
+                }
+                this.mode = ''
+                this.time = dayjs.duration(this.focusDuration, 'minutes')
+              },
+              setTime() {
+                if (this.focusDuration && this.mode === '') {
+                  this.time = dayjs.duration(this.focusDuration, 'minutes')
+                }
+              },
+              getTime() {
+                if (this.time === null) {
+                  this.time = dayjs.duration(this.focusDuration, 'minutes')
+                }
+                return this.time.format('mm:ss')
+              },
+           }
+       } 
+   </script>
+  </body>
+</html>
