@@ -39,9 +39,28 @@
              <label>Break Duration</label>
              <input aria-label="Example text box" type="text" x-model="breakDuration"/>
            </div>
+           <div style="margin-top: 1rem;">
+             <details>
+               <summary>Records</summary>
+               Something small enough to escape casual notice.
+             </details>
+
+           </div>
        </div>
    </div>
    <script>
+     function createRecord(time) {
+       const records = window.localStorage.getItem("records")
+       if (!records) {
+         window.localStorage.setItem("records", JSON.stringify([{time, dateFinished: dayjs().format('DD/MM/YYYY HH:mm')}]))
+       } else {
+         const recordsDecoded = JSON.parse(records)
+         window.localStorage.setItem("records", JSON.stringify([
+           ...recordsDecoded,
+           {time, dateFinished: dayjs().format('DD/MM/YYYY HH:mm')}
+         ]))
+       }
+     }
        function pomodoroComponent() {
            return {
               mode: '',
@@ -56,7 +75,14 @@
                 if (this.timer === null) {
                   this.mode = 'Focusing'
                   this.timer = window.setInterval(() => {
-                    this.time = this.time.subtract(1, 'second')
+                    if (this.time <= 0 && this.mode !== 'Break') {
+                      window.clearInterval(this.timer)
+                      this.mode = 'Break'
+                      this.time = dayjs.duration(this.breakDuration, 'minutes')
+                      createRecord(this.focusDuration)
+                    } else {
+                      this.time = this.time.subtract(1, 'second')
+                    }
                   }, 1000)
                 }
               },
