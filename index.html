@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pomodoro</title>
+    <title x-text="getTime()">Pomodoro</title>
     <meta name="description" content="Pomodoro">
     <!-- <link rel="stylesheet" type="text/css" href="theme.css"> -->
     <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
@@ -22,7 +22,9 @@
        </div>
        <div class="separator"></div>
        
-       <div class="window-pane" x-data="pomodoroComponent()" x-init="$watch('focusDuration', () => setTime())">
+       <div class="window-pane" 
+         x-data="pomodoroComponent()" 
+         x-init="$watch('focusDuration', (newDuration) => { setTime(); setFocusDuration(newDuration) })">
            <h1 style="display: flex; gap: 0.5rem;" ><span x-text="getTime()"></span><span x-text="mode"></span></h1>
            <button class="btn" aria-label="Start" x-on:click="play()">
              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg>
@@ -40,31 +42,64 @@
              <input aria-label="Example text box" type="text" x-model="breakDuration"/>
            </div>
            <div style="margin-top: 1rem;">
+             <label>Focus Note</label>
+             <input aria-label="Example text box" type="text" x-model="focusNote"/>
+           </div>
+           <div style="margin-top: 1rem;">
              <details>
                <summary>Records</summary>
-               Something small enough to escape casual notice.
+               <ul x-data="{ records: fetchRecords() }">
+                 <template x-for="record in records">
+                   <li>
+                     <span x-text="record.time"></span> 
+                     <template x-if="parseInt(record.time) > 1">
+                       <span>minutes:</span>
+                     </template>
+                     <template x-if="parseInt(record.time) <= 1">
+                       <span>minute:</span>
+                     </template>
+                     <span x-text="record.note"></span>
+                   </li>
+                 </template>
+               </ul>
              </details>
 
            </div>
        </div>
    </div>
    <script>
-     function createRecord(time) {
+     function fetchFocusDurationSetting() {
+       const focusDuration = window.localStorage.getItem('focus-duration')
+       if (focusDuration) {
+         return focusDuration
+       }
+     }
+     function setFocusDuration(newDuration) {
+       window.localStorage.setItem('focus-duration', parseInt(newDuration))
+     }
+     function fetchRecords() {
        const records = window.localStorage.getItem("records")
+       if (!records) return []
+       return JSON.parse(records)
+     }
+     function createRecord(time, note) {
+       const records = window.localStorage.getItem("records")
+       const newRecord = {time, dateFinished: dayjs().format('DD/MM/YYYY HH:mm'), note}
        if (!records) {
-         window.localStorage.setItem("records", JSON.stringify([{time, dateFinished: dayjs().format('DD/MM/YYYY HH:mm')}]))
+         window.localStorage.setItem("records", JSON.stringify([newRecord]))
        } else {
          const recordsDecoded = JSON.parse(records)
          window.localStorage.setItem("records", JSON.stringify([
            ...recordsDecoded,
-           {time, dateFinished: dayjs().format('DD/MM/YYYY HH:mm')}
+           newRecord
          ]))
        }
      }
        function pomodoroComponent() {
            return {
               mode: '',
-              focusDuration: 29,
+              focusNote: '',
+              focusDuration: fetchFocusDurationSetting() || 22,
               breakDuration: 5,
               time: null,
               timer: null,
@@ -79,7 +114,8 @@
                       window.clearInterval(this.timer)
                       this.mode = 'Break'
                       this.time = dayjs.duration(this.breakDuration, 'minutes')
-                      createRecord(this.focusDuration)
+                      createRecord(this.focusDuration, this.focusNote)
+                      this.focusNote = ''
                     } else {
                       this.time = this.time.subtract(1, 'second')
                     }
