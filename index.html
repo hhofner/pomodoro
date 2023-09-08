@@ -27,11 +27,11 @@
          x-init="$watch('focusDuration', (newDuration) => { setTime(); setFocusDuration(newDuration) })">
            <h1 style="display: flex; gap: 0.5rem;" ><span x-text="getTime()"></span><span x-text="mode"></span></h1>
            <button class="btn" aria-label="Start" x-on:click="play()">
-             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><g fill="currentColor"><path d="M19.49 10.19a1 1 0 0 1-.054 1.74l-11.97 6.299A1 1 0 0 1 6 17.344V3.777a1 1 0 0 1 1.519-.855l11.97 7.268Z" opacity=".8"/><path fill-rule="evenodd" d="m4.65 16.844l11.97-6.3L4.65 3.278v13.567Zm12.436-5.414a1 1 0 0 0 .054-1.74L5.169 2.422a1 1 0 0 0-1.519.855v13.567a1 1 0 0 0 1.466.885l11.97-6.3Z" clip-rule="evenodd"/></g></svg>
            </button>
-           <button class="btn" aria-label="Pause" x-on:click="pause()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button>
+           <button class="btn" aria-label="Pause" x-on:click="pause()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><g fill="currentColor"><g opacity=".8"><path d="M5.5 6a2 2 0 0 1 2-2h.706a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7.5a2 2 0 0 1-2-2V6Z"/><path fill-rule="evenodd" d="M8.206 6H7.5v10h.706V6ZM7.5 4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h.706a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H7.5Z" clip-rule="evenodd"/><path d="M12.088 6a2 2 0 0 1 2-2h.706a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-.706a2 2 0 0 1-2-2V6Z"/><path fill-rule="evenodd" d="M14.794 6h-.706v10h.706V6Zm-.706-2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h.706a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-.706Z" clip-rule="evenodd"/></g><path fill-rule="evenodd" d="M6.706 4H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h.706a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1ZM6 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h.706a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6Zm7.294 1h-.706a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h.706a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-.706-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h.706a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-.706Z" clip-rule="evenodd"/></g></svg></button>
            <button class="btn" aria-label="Stop" x-on:click="stop()">
-             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h12v12H6z"/></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 26 26"><g fill="currentColor"><path d="M26 14c0 6.627-5.373 12-12 12S2 20.627 2 14S7.373 2 14 2s12 5.373 12 12Z" opacity=".2"/><g fill-rule="evenodd" clip-rule="evenodd"><path d="M8.604 8.45a6.44 6.44 0 0 0-1.882 5.278a.5.5 0 0 1-.995.105a7.44 7.44 0 0 1 2.175-6.096c2.937-2.897 7.675-2.85 10.582.098c2.907 2.947 2.888 7.685-.05 10.582a7.425 7.425 0 0 1-5.097 2.142a7.527 7.527 0 0 1-2.14-.271a.5.5 0 0 1 .266-.964a6.524 6.524 0 0 0 1.856.235a6.424 6.424 0 0 0 4.413-1.854c2.541-2.506 2.562-6.61.04-9.168c-2.522-2.558-6.627-2.594-9.168-.088Z"/><path d="M6.594 14.363a.5.5 0 0 1-.706.04l-1.72-1.53a.5.5 0 1 1 .664-.746l1.72 1.53a.5.5 0 0 1 .042.706Z"/><path d="M5.82 14.3a.5.5 0 0 0 .7.1l2-1.5a.5.5 0 1 0-.6-.8l-2 1.5a.5.5 0 0 0-.1.7ZM13 9.5a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-1 0V10a.5.5 0 0 1 .5-.5Z"/><path d="M16.5 13.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 .5.5Z"/></g><path fill-rule="evenodd" d="M13 24.5c6.351 0 11.5-5.149 11.5-11.5S19.351 1.5 13 1.5S1.5 6.649 1.5 13S6.649 24.5 13 24.5Zm0 1c6.904 0 12.5-5.596 12.5-12.5S19.904.5 13 .5S.5 6.096.5 13S6.096 25.5 13 25.5Z" clip-rule="evenodd"/></g></svg>
            </button>
            <div style="margin-top: 1rem;">
              <label>Focus Duration</label>
@@ -49,7 +49,7 @@
              <details>
                <summary>Records</summary>
                <ul x-data="{ records: fetchRecords() }">
-                 <template x-for="record in records">
+                 <template x-for="record in records.reverse()">
                    <li>
                      <span x-text="record.time"></span> 
                      <template x-if="parseInt(record.time) > 1">
@@ -68,6 +68,10 @@
        </div>
    </div>
    <script>
+     let audio = new Audio('./finish.mp3')
+     function playAudio() {
+       audio.play()
+     }
      function fetchFocusDurationSetting() {
        const focusDuration = window.localStorage.getItem('focus-duration')
        if (focusDuration) {
@@ -95,65 +99,74 @@
          ]))
        }
      }
-       function pomodoroComponent() {
-           return {
-              mode: '',
-              focusNote: '',
-              focusDuration: fetchFocusDurationSetting() || 22,
-              breakDuration: 5,
-              time: null,
-              timer: null,
-              play() {
-                if (this.time === null) {
-                  this.time = dayjs.duration(this.focusDuration, 'minutes')
-                }
-                if (this.timer === null) {
-                  this.mode = 'Focusing'
-                  this.timer = window.setInterval(() => {
-                    if (this.time <= 0 && this.mode !== 'Break') {
-                      window.clearInterval(this.timer)
-                      this.mode = 'Break'
-                      this.time = dayjs.duration(this.breakDuration, 'minutes')
-                      createRecord(this.focusDuration, this.focusNote)
-                      this.focusNote = ''
-                    } else {
-                      this.time = this.time.subtract(1, 'second')
-                    }
-                  }, 1000)
-                }
-              },
-              pause() {
-                if (this.time !== null) {
-                  if (this.timer) {
-                    this.mode = 'Paused'
-                    window.clearInterval(this.timer)
-                    this.timer = null
-                  }
-                }
-              },
-              stop () {
-                if (this.time !== null) {
-                  if (this.timer) {
-                    window.clearInterval(this.timer)
-                    this.timer = null
-                  }
-                }
-                this.mode = ''
+     function pomodoroComponent() {
+         return {
+            mode: '',
+            focusNote: '',
+            focusDuration: fetchFocusDurationSetting() || 22,
+            breakDuration: 5,
+            time: null,
+            timer: null,
+            play() {
+              if (this.time === null) {
                 this.time = dayjs.duration(this.focusDuration, 'minutes')
-              },
-              setTime() {
-                if (this.focusDuration && this.mode === '') {
-                  this.time = dayjs.duration(this.focusDuration, 'minutes')
+              }
+              if (this.timer === null) {
+                this.mode = 'Focusing'
+                this.timer = window.setInterval(() => {
+                  if (this.time <= 0 && this.mode !== 'Break') {
+                    playAudio()
+                    window.clearInterval(this.timer)
+                    this.mode = 'Break'
+                    this.time = dayjs.duration(this.breakDuration, 'minutes')
+                    this.timer = null
+                    createRecord(this.focusDuration, this.focusNote)
+                    this.focusNote = ''
+                  } 
+                  else if(this.time <= 0 && this.mode !== 'Focusing') {
+                    window.clearInterval(this.timer)
+                    this.mode = 'Focusing'
+                    this.time = dayjs.duration(this.focusDuration, 'minutes')
+                    this.timer = null
+                  }
+                  else {
+                    this.time = this.time.subtract(1, 'second')
+                  }
+                }, 1000)
+              }
+            },
+            pause() {
+              if (this.time !== null) {
+                if (this.timer) {
+                  this.mode = 'Paused'
+                  window.clearInterval(this.timer)
+                  this.timer = null
                 }
-              },
-              getTime() {
-                if (this.time === null) {
-                  this.time = dayjs.duration(this.focusDuration, 'minutes')
+              }
+            },
+            stop () {
+              if (this.time !== null) {
+                if (this.timer) {
+                  window.clearInterval(this.timer)
+                  this.timer = null
                 }
-                return this.time.format('mm:ss')
-              },
-           }
-       } 
+              }
+              this.mode = ''
+              this.time = dayjs.duration(this.focusDuration, 'minutes')
+            },
+            setTime() {
+              if (this.focusDuration && this.mode === '') {
+                this.time = dayjs.duration(this.focusDuration, 'minutes')
+              }
+            },
+            getTime() {
+              if (this.time === null) {
+                this.time = dayjs.duration(this.focusDuration, 'minutes')
+              }
+              return this.time.format('mm:ss')
+            },
+         }
+     } 
    </script>
   </body>
 </html>
